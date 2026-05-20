@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model PdfTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  content     String
+  variables   String   @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  generatedPdfs GeneratedPdf[]
+
+  @@map("pdf_templates")
+}
+
+model GeneratedPdf {
+  id             String   @id @default(cuid())
+  templateId     String
+  templateName   String
+  data           String
+  fileName       String
+  filePath       String
+  fileSize       Int?
+  pageCount      Int?
+  createdAt      DateTime @default(now())
+  template       PdfTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@index([templateId])
+  @@map("generated_pdfs")
+}
