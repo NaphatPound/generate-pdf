@@ -8,6 +8,7 @@ import {
 import { ArrowLeftOutlined, EditOutlined, FilePdfOutlined, DownloadOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons'
 import { generatePdf } from '@/lib/pdfExport'
 import PdfDocument from '@/components/PdfDocument'
+import { TemplateEditor } from '@/components/TemplateEditor'
 import dayjs from 'dayjs'
 
 const { TextArea } = Input
@@ -264,11 +265,9 @@ export default function TemplateDetailPage() {
             label: 'Edit Template',
             children: (
               <div>
-                <TextArea
+                <TemplateEditor
                   value={editContent}
-                  onChange={(e) => setEditContent(e.target.value)}
-                  rows={25}
-                  style={{ fontFamily: "'Courier New', monospace", fontSize: 13 }}
+                  onChange={(html) => setEditContent(html)}
                 />
                 <div style={{ marginTop: 16 }}>
                   <Space>

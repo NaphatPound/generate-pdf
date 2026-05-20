@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button, Form, Input, App, Typography } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import { TemplateEditor } from '@/components/TemplateEditor'
 
-const { TextArea } = Input
 const { Title } = Typography
 
 const defaultContent = `<!DOCTYPE html>
@@ -125,23 +125,10 @@ export default function NewTemplatePage() {
         </Form.Item>
 
         <Form.Item label="HTML Content" required>
-          <div style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: 6,
-            overflow: 'hidden',
-          }}>
-            <TextArea
-              value={content}
-              onChange={(e) => handleContentChange(e.target.value)}
-              rows={20}
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: 13,
-                borderRadius: 0,
-                border: 'none',
-              }}
-            />
-          </div>
+          <TemplateEditor
+            value={content}
+            onChange={(html) => handleContentChange(html)}
+          />
         </Form.Item>
 
         {extractedVars.length > 0 && (
